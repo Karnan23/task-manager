@@ -116,7 +116,12 @@ def clear_tasks():
 
 
 with app.app_context():
-    init_db()
+    try:
+        init_db()
+        print("Database initialized successfully.")
+    except Exception as e:
+        print("Database initialization failed:", e)
+
 
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=5000)
