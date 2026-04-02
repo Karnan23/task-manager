@@ -37,3 +37,9 @@ backend/data.db
 
 # --- System / OS Files ---
 Thumbs.db
+
+# --- Extra safety ---
+backend/.env
+frontend/.env
+*.egg-info/
+.pytest_cache/

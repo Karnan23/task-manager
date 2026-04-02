@@ -1,159 +1,165 @@
-# ✅ Task Manager — Full Stack Web Application
+# ⚡ TaskFlow AI
 
-A complete **Full Stack Task Manager** built with **React (Vite)** for the frontend and **Flask (Python)** for the backend.  
-This app allows users to create, edit, mark complete, and delete tasks, storing everything persistently in a **SQLite** database.
+An AI-powered productivity platform that analyzes your tasks, builds your daily schedule, tracks your performance, and learns from your habits over time.
 
----
-
-## 🚀 Features
-
-- 🔹 Add, edit, and delete tasks  
-- 🔹 Mark tasks as completed or pending  
-- 🔹 Real-time UI updates without page reload  
-- 🔹 Persistent data storage using SQLite  
-- 🔹 RESTful API with Flask  
-- 🔹 CORS-enabled frontend-backend communication  
-- 🔹 Clean modular code structure (production-friendly)
+Built with **Flask + React + Groq AI (Llama 3.3 70B)**.
 
 ---
 
-## 🧠 Tech Stack
+## 🚀 Live Features
 
-**Frontend**
-- React (Vite)
-- JavaScript (Fetch API)
-- CSS (custom + responsive)
-- Node.js + npm
+### 📋 AI Task Analysis
+Add any task in plain English. The AI instantly returns:
+- **Category** — Work, Study, Personal, Health, Creative, General
+- **Difficulty** — Easy, Medium, Hard
+- **Realistic time estimate** — based on task context, not generic guesses
+- **Actionable tip** — one short suggestion to complete it efficiently
 
-**Backend**
-- Flask (Python)
-- Flask-CORS
-- SQLite3 (lightweight DB)
+### 🗓 Day Schedule Builder
+- Drag and reorder your tasks before locking in the day
+- Pick your start time — the AI builds a time-blocked schedule automatically
+- 10-minute breaks added between tasks
+- Live "NOW" indicator shows where you are in your day
+- AI Coach validates your plan: *"This is overloaded — here's how to fix it"*
 
-**Development Tools**
-- VS Code
-- Virtual Environment (venv)
-- npm & pip for dependency management
+### 📊 Day Report
+- Completion rate, done/partial/skipped breakdown
+- Time accuracy: estimated vs actual per task
+- Category performance charts
+- AI-generated narrative: honest, specific, encouraging
+
+### 📧 Email Reports
+- Type any email to receive a beautifully formatted HTML report
+- Choose Daily or Weekly
+- Auto weekly report every Sunday at 8 PM
+
+### 🧠 AI Learns From You
+- Tracks your actual completion time per category
+- Calculates your personal speed ratio (faster/slower than estimated)
+- Feeds your history back into every new estimate — gets smarter with use
+- "My Patterns" dashboard shows your strongest and weakest categories
 
 ---
 
-## ⚙️ Installation & Setup
+## 🛠 Tech Stack
 
-### 1️⃣ Clone the Repository
+| Layer | Technology |
+|-------|-----------|
+| Backend | Python, Flask, Flask-CORS |
+| AI | Groq API — Llama 3.3 70B Versatile |
+| Database | SQLite |
+| Frontend | React 18, Vite |
+| Email | smtplib, Gmail SMTP |
+| Scheduling | Python threading |
+
+---
+
+## ⚙️ Local Setup
+
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- A free [Groq API key](https://console.groq.com)
+- Gmail account with [App Password](https://myaccount.google.com/apppasswords) enabled
+
+### 1. Clone the repo
 ```bash
-git clone https://github.com/Karnan23/task-manager.git
-cd task-manager
+git clone https://github.com/yourusername/taskflow-ai.git
+cd taskflow-ai
 ```
 
-### 2️⃣ Backend Setup (Flask + SQLite)
+### 2. Backend setup
 ```bash
 cd backend
 python -m venv venv
-venv\Scripts\activate        # On Windows
-# or
-source venv/bin/activate     # On macOS/Linux
-
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Mac/Linux
 pip install -r requirements.txt
+```
+
+Create a `.env` file inside `backend/`:
+```
+GROQ_API_KEY=your_groq_key_here
+EMAIL_SENDER=yourgmail@gmail.com
+EMAIL_PASSWORD=your_16_char_app_password
+EMAIL_RECEIVER=yourgmail@gmail.com
+```
+
+Start the backend:
+```bash
 python app.py
 ```
 
-✅ Backend runs on [http://127.0.0.1:5000](http://127.0.0.1:5000)
-
-### 3️⃣ Frontend Setup (React + Vite)
+### 3. Frontend setup
 ```bash
-cd ../frontend
+cd frontend
 npm install
 npm run dev
 ```
 
-✅ Frontend runs on [http://localhost:5173](http://localhost:5173)
-
-### 4️⃣ Project Flow
-
-| Step | Component | Description |
-|------|------------|-------------|
-| 1 | 🧠 **React UI** | User interacts with input fields and buttons |
-| 2 | 🌐 **Fetch API** | Sends requests to Flask API endpoints |
-| 3 | 🔥 **Flask Backend** | Handles requests and performs database operations |
-| 4 | 💾 **SQLite Database** | Stores and retrieves persistent task data |
-| 5 | ⚡ **React (Re-render)** | Updates the UI instantly with new data |
+Open **http://localhost:5173**
 
 ---
 
-## 🧩 API Endpoints
+## 📁 Project Structure
+
+```
+taskflow-ai/
+├── backend/
+│   ├── app.py              # Flask API — all routes and AI logic
+│   ├── requirements.txt
+│   └── .env                # secrets — never committed
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx         # Tasks tab
+│   │   ├── Schedule.jsx    # Day schedule timeline
+│   │   └── Report.jsx      # Day report + email + patterns
+│   ├── .env                # VITE_API_URL
+│   └── package.json
+└── README.md
+```
+
+---
+
+## 🔌 API Reference
 
 | Method | Endpoint | Description |
-|---------|-----------|-------------|
-| `GET` | `/api/tasks` | Fetch all tasks |
-| `POST` | `/api/tasks` | Create a new task |
-| `PATCH` | `/api/tasks/<id>` | Update specific task fields |
-| `PUT` | `/api/tasks/<id>` | Replace a task completely |
-| `DELETE` | `/api/tasks/<id>` | Delete a specific task |
-| `POST` | `/api/tasks/clear` | Delete all tasks |
+|--------|----------|-------------|
+| GET | `/api/tasks` | Fetch all tasks |
+| POST | `/api/tasks` | Add task — triggers AI analysis |
+| PATCH | `/api/tasks/:id` | Update status, actual time |
+| DELETE | `/api/tasks/:id` | Delete task |
+| POST | `/api/day/validate` | AI validates day plan |
+| GET | `/api/day/report` | Generate day report |
+| GET | `/api/patterns` | Fetch user productivity patterns |
+| POST | `/api/email/send` | Send email report |
 
+---
 
-Example JSON Response:
-```bash
-{
-  "id": 1,
-  "title": "Buy milk",
-  "completed": false
-}
+## 💡 How the AI Learning Works
+
+Every time you complete a task and log the actual time taken, the app stores it. On the next task you add in the same category, the AI receives your personal history:
+
 ```
----
-
-## 🧰 Folder Structure
-```bash
-task_app/
-├── backend/
-│   ├── app.py
-│   ├── requirements.txt
-│   ├── data.db
-│   └── venv/
-│
-└── frontend/
-    ├── public/
-    │   ├── bg.jpeg
-    │   └── task_icon.png
-    ├── src/
-    │   ├── App.jsx
-    │   ├── main.jsx
-    │   └── index.css
-    ├── package.json
-    └── vite.config.js
+Study tasks: avg actual 1.2h vs estimated 2h — user finishes FASTER (ratio 0.6x)
 ```
----
 
-## 🧪 Testing the Application
-
-1. Run Flask backend (python app.py)
-
-2. Run React frontend (npm run dev)
-
-3. Open [http://localhost:5173]
-
-4. Add tasks and verify data in SQLite (using VS Code SQLite Viewer)
+The AI uses this to give you tighter, personalized estimates — not generic ones.
 
 ---
 
-## 📦 Deployment
+## 🗺 Roadmap
 
-- **Frontend**: Deploy to Vercel / Netlify
-
-- **Backend**: Deploy to Render / Railway
-
-- **Database**: SQLite auto-hosted with backend
-
-Example production structure:
-
-[https://your-task-app.vercel.app]  → frontend
-[https://your-task-api.onrender.com] → backend
+- [ ] User authentication — multi-user support
+- [ ] Weekly trend charts
+- [ ] Mobile app (React Native)
+- [ ] Pomodoro timer integration
+- [ ] Calendar export (.ics)
 
 ---
 
-## 🧑‍💻 Author
+## 👤 Author
 
-Karnan G
-[LinkedIn](https://www.linkedin.com/in/karnan-g-771a43287) | [GitHub](https://github.com/Karnan23)
-
-“Code like a scientist, debug like a detective, and deploy like a boss.” ⚡
+**Karnan G**
+Full-Stack & AI Developer
+[GitHub](https://github.com/Karnan23) • [LinkedIn](https://linkedin.com/in/karnan-g-771a43287) • karnang417@gmail.com
