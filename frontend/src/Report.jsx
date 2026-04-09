@@ -124,14 +124,14 @@ function Report() {
     <div style={{ minHeight: '100vh', background: '#f7f8fc', fontFamily: 'system-ui, sans-serif' }}>
 
       {/* Header */}
-      <div style={{ background: '#1a1a2e', color: '#fff', padding: '20px 32px' }}>
+      <div className="app-header">
         <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 700 }}>📊 Day Report</h2>
         <p style={{ margin: '4px 0 0', fontSize: '17px', color: '#9b9bc8' }}>
           AI-generated productivity summary for today
         </p>
       </div>
 
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '24px 16px' }}>
+      <div className="page-content">
 
         {/* Generate button */}
         {!report && !loading && (
@@ -179,7 +179,7 @@ function Report() {
         {report && (
           <>
             {/* Stats grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '12px', marginBottom: '20px' }}>
+            <div className="stats-grid">
               <StatCard value={`${report.completion_rate}%`} label="Completion rate" color="#3f51b5" />
               <StatCard value={report.done}    label="Tasks done"    color="#2e7d32" sub={`of ${report.total} total`} />
               <StatCard value={report.partial} label="Partial"       color="#e65100" />
@@ -187,7 +187,7 @@ function Report() {
             </div>
 
             {/* Time accuracy */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '20px' }}>
+            <div className="grid-2">
               <div style={{ background: '#fff', borderRadius: '12px', padding: '16px 20px', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
                 <div style={{ fontSize: '17px', fontWeight: 600, color: '#555', marginBottom: '12px' }}>⏱ Time Summary</div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
@@ -296,7 +296,7 @@ function Report() {
             </div>
 
 
-            {/* MY PATTERNS*/}
+            {/* MY PATTERNS */}
             <div style={{ background: '#fff', borderRadius: '12px', padding: '20px', marginTop: '16px', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
                 <div style={{ fontWeight: 600, fontSize: '17px' }}>🧠 My Productivity Patterns</div>
@@ -315,7 +315,7 @@ function Report() {
               {patterns && (
                 <>
                   {/* Overall summary */}
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '10px', marginBottom: '16px' }}>
+                  <div className="grid-3">
                     {[
                       { label: 'Overall completion', value: `${patterns.overall.completion_rate}%`,
                         color: patterns.overall.completion_rate >= 70 ? '#2e7d32' : patterns.overall.completion_rate >= 40 ? '#f57f17' : '#c62828' },

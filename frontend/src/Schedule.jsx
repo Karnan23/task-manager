@@ -65,9 +65,8 @@ function Schedule() {
     finally { setLoading(false) }
   }
 
-  // Build schedule blocks from ordered task list
   function buildSchedule(orderedTasks, startH) {
-    let cursor = startH * 60 //minutes from the midnight
+    let cursor = startH * 60 // minutes from midnight
     return orderedTasks.map(task => {
       const durationMins = Math.round((task.estimated_time || 1) * 60)
       const block = {
@@ -140,7 +139,7 @@ function Schedule() {
   }
   function onDragEnd() { setDragIdx(null) }
 
-  // progress: what % of the day is done
+  // Progress: what % of the day is done
   const nowMins       = currentTime.getHours() * 60 + currentTime.getMinutes()
   const dayStartMins  = startHour * 60
   const dayEndMins    = schedule.length ? schedule[schedule.length - 1].endMin : dayStartMins + 480
@@ -154,14 +153,14 @@ function Schedule() {
     <div style={{ minHeight: '100vh', background: '#f7f8fc', fontFamily: 'system-ui, sans-serif' }}>
 
       {/* HEADER */}
-      <div style={{ background: '#1a1a2e', color: '#fff', padding: '20px 32px' }}>
+      <div className="app-header">
         <h2 style={{ margin: 0, fontSize: '20px', fontWeight: 700 }}>🗓 Day Schedule</h2>
         <p style={{ margin: '4px 0 0', fontSize: '17px', color: '#9b9bc8' }}>
           Plan and visualize your day — AI validates your workload
         </p>
       </div>
 
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '24px 16px' }}>
+      <div className="page-content">
 
         {loading ? (
           <div style={{ textAlign: 'center', padding: '60px', color: '#888' }}>Loading tasks...</div>
@@ -250,7 +249,7 @@ function Schedule() {
             {finalized && (
               <>
                 {/* Summary bar */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px', marginBottom: '20px' }}>
+                <div className="grid-3">
                   {[
                     { label: 'Tasks planned', value: schedule.length, color: '#3f51b5' },
                     { label: 'Total hours',   value: `${totalHours.toFixed(1)}h`, color: '#00897b' },

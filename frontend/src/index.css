@@ -15,8 +15,128 @@ body {
   color: #111;
 }
 
-h1 {
-  margin: 0 0 16px 0;
+.app-header {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 24px 32px 0;
+  width: 100%;
+}
+
+.app-title {
+  margin: 0 0 20px;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 10px;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.2s;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.page-content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.task-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.actual-time-input {
+  width: 160px;
+}
+
+/* MOBILE — max 600px */
+@media (max-width: 600px) {
+
+  .app-header {
+    padding: 16px 12px 0;
+  }
+
+  .app-title {
+    font-size: 24px;
+    margin-bottom: 14px;
+    gap: 8px;
+  }
+
+  .tab-bar {
+    gap: 2px;
+  }
+
+  .tab-btn {
+    font-size: 12px;
+    padding: 8px 6px;
+    flex: 1;
+  }
+
+  .page-content {
+    padding: 12px 10px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .actual-time-input {
+    width: 100%;
+  }
 }

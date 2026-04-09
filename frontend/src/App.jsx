@@ -127,10 +127,10 @@ function Tasks() {
   }
 
   return (
-    <div style={{ maxWidth: '860px', margin: '0 auto', padding: '24px 16px' }}>
+    <div className="page-content" style={{ maxWidth: '860px', margin: '0 auto' }}>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '12px', marginBottom: '24px' }}>
+      <div className="stats-grid">
         {[
           { label: 'Total',   value: stats.total,   color: '#3f51b5' },
           { label: 'Done',    value: stats.done,    color: '#2e7d32' },
@@ -165,7 +165,7 @@ function Tasks() {
             padding: '10px 20px', background: adding ? '#9fa8da' : '#3f51b5',
             color: '#fff', border: 'none', borderRadius: '8px',
             fontSize: '16px', fontWeight: 600, cursor: adding ? 'not-allowed' : 'pointer',
-            minWidth: '110px'
+            minWidth: '110px', whiteSpace: 'nowrap'
           }}>
             {adding ? '🤖 Analyzing...' : '+ Add Task'}
           </button>
@@ -271,13 +271,13 @@ function Tasks() {
                 </div>
 
                 {task.status === 'pending' && (
-                  <div style={{ marginTop: '12px', display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <div className="task-actions" style={{ marginTop: '12px', display: 'flex', gap: '8px', alignItems: 'center' }}>
                     <input
                       type="number" min="0.1" step="0.1"
                       placeholder="Actual hrs (optional)"
                       value={actualTimeInputs[task.id] || ''}
                       onChange={e => setActualTimeInputs(prev => ({ ...prev, [task.id]: e.target.value }))}
-                      style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #e0e0e0', fontSize: '16px', width: '160px' }}
+                      className="actual-time-input" style={{ padding: '6px 10px', borderRadius: '6px', border: '1px solid #e0e0e0', fontSize: '16px', width: '160px' }}
                     />
                     {['done', 'partial', 'skipped'].map(s => (
                       <button key={s} onClick={() => handleStatusChange(task, s)} style={{
@@ -323,31 +323,25 @@ function App() {
     <div style={{ minHeight: '100vh', background: '#f7f8fc', fontFamily: 'system-ui, sans-serif' }}>
 
       {/* Header */}
-      <div style={{ background: '#1a1a2e', color: '#fff', padding: '40px 32px 0' }}>
-        <div style={{ maxWidth: '860px', margin: '0 auto' }}>
-          <h1 style={{ margin: '0 0 32px', fontSize: '42px', fontWeight: 700, letterSpacing: '-0.5px' }}>
+      <div className="app-header">
+          <h1 className="app-title">
             ⚡ TaskFlow AI ⚡
           </h1>
-
           {/* Tab bar */}
-          <div style={{ display: 'flex', gap: '4px' }}>
+          <div className="tab-bar">
             {[
               { id: 'tasks',    label: '📋 Tasks' },
               { id: 'schedule', label: '🗓 Schedule' },
               { id: 'report',   label: '📊 Day Report' },
             ].map(tab => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-                padding: '10px 98px', border: 'none', cursor: 'pointer',
-                fontSize: '16px', fontWeight: 600, borderRadius: '8px 8px 0 0',
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className="tab-btn" style={{
                 background: activeTab === tab.id ? '#f7f8fc' : 'transparent',
                 color:      activeTab === tab.id ? '#1a1a2e' : '#9b9bc8',
-                transition: 'all 0.2s'
               }}>
                 {tab.label}
               </button>
             ))}
           </div>
-        </div>
       </div>
 
       {/* Tab content */}
