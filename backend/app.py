@@ -571,23 +571,17 @@ def build_email_html(report_data, period='daily'):
 
 
 def send_email(to_email, subject, html_body):
-    sender   = os.getenv("EMAIL_SENDER")
-    password = os.getenv("EMAIL_PASSWORD")
+    from sendgrid import SendGridAPIClient
+    from sendgrid.helpers.mail import Mail
 
-    if not sender or not password:
-        raise ValueError("EMAIL_SENDER and EMAIL_PASSWORD not set in .env")
-
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"]    = sender
-    msg["To"]      = to_email
-    msg.attach(MIMEText(html_body, "html"))
-
-    with smtplib.SMTP("smtp.gmail.com", 587) as server:
-        server.ehlo()
-        server.starttls()
-        server.login(sender, password)
-        server.sendmail(sender, to_email, msg.as_string())
+    message = Mail(
+        from_email=os.getenv("EMAIL_SENDER"),
+        to_emails=to_email,
+        subject=subject,
+        html_content=html_body
+    )
+    sg = SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
+    sg.send(message)
 
 # EMAIL ROUTES
 
